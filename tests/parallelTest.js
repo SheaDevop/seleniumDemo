@@ -54,4 +54,5 @@ describe("add some more text", function(){
 //to make this simpler allocate tests in "test" dir and run ==> npx mocha --no-timeouts
   //or better replace test script in pkg.json for "mocha --no-timeouts 'tests/*.js'"
 
-//to run the tests in parallel add the flag  --parallel to the test script in pkg.json
+//to run the tests in parallel add the flag  (--parallel) to the test script in pkg.json
+  //to do the report with mochawesome in parallel tests need to add the (--require mochawesome/register) flag
