@@ -1,6 +1,10 @@
 //bring selenium module
-const { describe, it } = require("mocha");
 const { Builder, By, Key } = require("selenium-webdriver");
+//bring mocha
+const { describe, it } = require("mocha");
+//require chai pkg
+  //should style 
+var should = require('chai').should();
 
 //describe block
 describe("add some text", function(){
@@ -33,6 +37,10 @@ describe("add some text", function(){
       return value
     });
     
+
+    //assert using chai should
+    fieldTextValue.should.equal("Learn Selenium")
+
     
     //close the browser
     await driver.quit();
