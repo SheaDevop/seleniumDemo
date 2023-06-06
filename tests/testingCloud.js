@@ -25,16 +25,19 @@ describe("add some more text", function(){
 
   const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 
-  //launch the browser
+  //executes before each it block
   beforeEach(function(){
+    //rename the test to the name of the it block thats running
     ltCapabilities.capabilities["LT:Options"].name = this.currentTest.title;
-
+    
+    //launch the browser
     driver = new Builder().usingServer(gridUrl).withCapabilities(ltCapabilities.capabilities).build();
 
   });
 
-  //close the browser
+  //executes after each it block
   afterEach(async function(){
+    //close the browser
     await driver.quit();
 
   });
