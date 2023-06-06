@@ -1,0 +1,74 @@
+//bring selenium module
+const { Builder, By, Key } = require("selenium-webdriver");
+//bring mocha
+const { describe, it } = require("mocha");
+//require chai pkg
+  //should style 
+var should = require('chai').should();
+//require capabilities file
+const ltCapabilities = require("../capabilities");
+
+//describe block
+describe("add some more text", function(){
+
+  var driver;
+
+  //username
+  const USERNAME = ltCapabilities.capabilities["LT:Options"].username;
+
+  //key
+  const KEY = ltCapabilities.capabilities["LT:Options"].accessKey;
+
+  //host
+    //example grid host name 
+  const GRID_HOST = "hub.shakeitmore.com/wd/hub";
+
+  const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
+
+  //launch the browser
+  beforeEach(function(){
+    ltCapabilities.capabilities["LT:Options"].name = this.currentTest.title;
+
+    driver = new Builder().usingServer(gridUrl).withCapabilities(ltCapabilities.capabilities).build();
+
+  });
+
+  //close the browser
+  afterEach(async function(){
+    await driver.quit();
+
+  });
+  
+  //it block
+  it("successfully adds more text to the text field and submit", async function(){
+    
+    
+    //navigate to the application
+    await driver.get("/application/EndPoint");
+    
+    
+    //test something in the app
+      //select the element to interact with
+        //do somthing with the element
+          //(write some text in and press enter in this case)
+    await driver.findElement(By.id("elementToSelect")).sendKeys("Learn Selenium on the cloud", Key.RETURN);
+    
+    
+    //assert (checking that our test do what it has to do)
+      //find the element by xpath
+        //(should be the last element in the path cause we just added it)
+      //get the text from the selected field
+        //then return it so it gets stored in the variable
+    let fieldTextValue = await driver.findElement(By.xpath("//li[last()]")).getText()
+    .then(function(value){
+      return value
+    });
+    
+
+    //assert using chai should
+    fieldTextValue.should.equal("Learn Selenium on the cloud")
+
+    
+    
+  });
+});
